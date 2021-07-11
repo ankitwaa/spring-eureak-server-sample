@@ -14,12 +14,14 @@ spec:
     spec:
       containers:
         - name: springboot
-          image: local-docker/ankitwaa
+          image: 192.168.0.105:8081/local-docker/ankitwaa:latest
           ports:
             - containerPort: 8761
           env:
             - name: PORT
-              value: "8761"
+              value: "8080"
+      imagePullSecrets:
+        - name: myregistrykey
 ---
 apiVersion: v1
 kind: Service
@@ -29,6 +31,6 @@ spec:
   type: NodePort
   ports:
     - port: 80
-      targetPort: 8761Dockerfile
+      targetPort: 8080
   selector:
     app: spring-eureka-server-sample
